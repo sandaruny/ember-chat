@@ -724,11 +724,15 @@
     };
 
     this.initSession = function () {
-      this.session = new this.Session();
+      //this.session = new this.Session();
+
       var id = b64_sha1('converse.bosh-session');
-      //Ember.set(this.session,'id', id); // Appears to be necessary for backbone.browserStorage
-      //this.session.browserStorage = new Backbone.BrowserStorage[converse.storage](id);
-      //this.session.fetch();
+      this.session = this.store.createRecord('session',{
+        id: this.id
+      });
+      Ember.set(this.session,'id', id); // Appears to be necessary for backbone.browserStorage
+      this.session.browserStorage = new Backbone.BrowserStorage[converse.storage](id);
+      this.session.fetch();
     };
 
     this.clearSession = function () {
@@ -968,6 +972,10 @@
         }
         return key;
       }
+    });
+
+    this.store = DS.Store.extend({
+
     });
 
     this.Message = DS.Model;
@@ -2060,7 +2068,9 @@
       }
     });
 
-    this.Session = DS.Model; // General session settings to be saved to sessionStorage.
+    this.Session = DS.Model.extend({
+      id: DS.attr()
+    }); // General session settings to be saved to sessionStorage.
     this.Feature = DS.Model;
     this.Features = DS.Model.extend({
       /* Service Discovery
