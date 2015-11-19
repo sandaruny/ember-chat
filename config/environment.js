@@ -2,6 +2,15 @@
 
 module.exports = function(environment) {
   var ENV = {
+    contentSecurityPolicy: {
+      'default-src': "*",
+      'script-src': "*  'self' 'unsafe-inline' 'unsafe-eval' use.typekit.net connect.facebook.net maps.googleapis.com maps.gstatic.com openfire.mfsnet.io:7443",
+      'font-src': "'self' data: use.typekit.net",
+      'connect-src': "* 'http://openfire.mfsnet.io:7070/http-bind/' ",
+      'img-src': "'self' www.facebook.com p.typekit.net",
+      'style-src': "'self' 'unsafe-inline' use.typekit.net",
+      'frame-src': "s-static.ak.facebook.com static.ak.facebook.com www.facebook.com openfire.mfsnet.io:7443"
+    },
     modulePrefix: 'converse-api',
     environment: environment,
     baseURL: '/',

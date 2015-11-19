@@ -7,12 +7,14 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link type="text/css" rel="stylesheet" media="screen" href="styles/bootstrap/dist/css/bootstrap.min.css"/>
-  <link type="text/css" rel="stylesheet" media="screen" href="styles/fontawesome/css/font-awesome.min.css"/>
-  <link type="text/css" rel="stylesheet" media="screen" href="styles/theme.css"/>
-  <link type="text/css" rel="stylesheet" media="screen" href="styles/converse.css"/>
+  {{content-for 'head'}}
 
-  <link type="text/css" rel="stylesheet" media="screen" href="styles/converse.min.css"/>
+  <link type="text/css" rel="stylesheet" media="screen" href="assets/bootstrap/dist/css/bootstrap.min.css"/>
+  <!--<link type="text/css" rel="stylesheet" media="screen" href="assets/fontawesome/css/font-awesome.min.css"/>-->
+  <!--<link type="text/css" rel="stylesheet" media="screen" href="assets/theme.css"/>-->
+  <!--<link type="text/css" rel="stylesheet" media="screen" href="assets/converse.css"/>-->
+  <link type="text/css" rel="stylesheet" media="screen" href="assets/converse-api.css"/>
+  <!--<link type="text/css" rel="stylesheet" media="screen" href="assets/converse.min.css"/>-->
 
   <script type="text/javascript" src="js/jquery/dist/jquery.js"></script>
 
@@ -48,16 +50,16 @@
 
   <script type="text/javascript" src="js/underscore/underscore.js"></script>
   <script type="text/javascript" src="js/backbone/backbone.js"></script>
-
-  <script type="text/javascript" src="js/handlebars-v4.0.4.js"></script>
-  <script type="text/javascript" src="js/ember.debug.js"></script>
-
-  <script type="text/javascript" src="js/ember-data.js"></script>
-
+  <script src="assets/vendor.js"></script>
+  <script src="assets/converse-api.js"></script>
+  <script src="js/localstorage_adapter.js" type="text/javascript" ></script>
+  <!--<script type="text/javascript" src="js/handlebars-v4.0.4.js"></script>-->
+  <!--<script type="text/javascript" src="js/ember.debug.js"></script>-->
+  <!--<script type="text/javascript" src="js/ember-data.js"></script>-->
   <!--<script type="text/javascript" src="app/services/store.js"></script>-->
   <!--<script type="text/javascript" src="app/models/session.js"></script>-->
   <!-- -->
-  <script type="text/javascript" src="js/app.js"></script>
+  <!--<script type="text/javascript" src="js/app.js"></script>-->
 
 
   <script type="text/javascript" src="js/backbone.browserStorage/backbone.browserStorage.js"></script>
@@ -69,36 +71,40 @@
   <script type="text/javascript" src="js/builds/locales.js"></script>
   <script type="text/javascript" src="js/builds/templates.js"></script>
   <script type="text/javascript" src="js/src/utils.js"></script>
-  <script type="text/javascript" src="js/converseapi.js"></script>
+  <!--<script type="text/javascript" src="js/converseapi.js"></script>-->
   <!--script type="text/javascript" src="js/converse_delivery.js"></script-->
 
 
+  {{content-for 'head-footer'}}
 </head>
 <body id="page-top" data-spy="scroll" data-target=".navbar-custom">
+
+{{content-for 'body'}}
+
+
 <div id="chatout">openfire.mfsnet.io<br>
   jema@openfire.mfsnet.io<br>
   bubu@openfire.mfsnet.io
 </div>
-<script type="text/x-handlebars-template">
-  {{outline}}
-</script>
+
+{{content-for 'body-footer'}}
 </body>
 
-<script>
-  converse.initialize({
-    bosh_service_url: 'http://openfire.mfsnet.io:7070/http-bind/ ',// 'http://localhost:7070/http-bind/',// '',// '', // Please use this connection manager only for testing purposes
-//bosh_service_url: 'https://openfire.mfsnet.io:7443/http-bind/', // Please use this connection manager only for testing purposes
-//websocket_url: 'http://openfire.mfsnet.io/xmpp-websocket',
-    keepalive: true,
-    message_carbons: true,
-    play_sounds: true,
-    roster_groups: true,
-    show_controlbox_by_default: true,
-    xhr_user_search: false
+<!--<script>-->
+<!--//  converse.initialize({-->
+<!--//    bosh_service_url: 'http://openfire.mfsnet.io:7070/http-bind/ ',// 'http://localhost:7070/http-bind/',// '',// '', // Please use this connection manager only for testing purposes-->
+<!--////bosh_service_url: 'https://openfire.mfsnet.io:7443/http-bind/', // Please use this connection manager only for testing purposes-->
+<!--////websocket_url: 'http://openfire.mfsnet.io/xmpp-websocket',-->
+<!--//    keepalive: true,-->
+<!--//    message_carbons: true,-->
+<!--//    play_sounds: true,-->
+<!--//    roster_groups: true,-->
+<!--//    show_controlbox_by_default: true,-->
+<!--//    xhr_user_search: false-->
+<!--//-->
+<!--//  });-->
 
-  });
-
-</script>
+<!--</script>-->
 </html>
 <!--<!DOCTYPE html>-->
 <!--<html>-->
@@ -118,9 +124,6 @@
   <!--</head>-->
   <!--<body>-->
     <!--{{content-for 'body'}}-->
-
-    <!--<script src="assets/vendor.js"></script>-->
-    <!--<script src="assets/converse-api.js"></script>-->
 
     <!--{{content-for 'body-footer'}}-->
   <!--</body>-->
