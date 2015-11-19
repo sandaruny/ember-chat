@@ -1152,7 +1152,7 @@ var roster = Ember.Object.create({
     var t = 0;
     converse.connection.addHandler(
       function (msg) {
-        alert('rosterx handler');
+        //alert('rosterx handler');
 
         window.setTimeout(
           function () {

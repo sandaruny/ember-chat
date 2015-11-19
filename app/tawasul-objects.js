@@ -68,12 +68,32 @@ export var Connection = Ember.Object.extend({
   }
 });
 
+
+
+/**
+ * This will sync with the roster in th localstorage and the
+ * loaded one from the server
+ */
+var Roster = Ember.Object.extend({
+
+  _rosterList: {},
+  /**
+   * Roster DS Structure
+   */
+  _rosterContacts: undefined,
+
+  
+
+
+
+
+});
+
 /**
  * This class is responsible as the main agent that creates
  * and updates the chat interface in the main stream
  *
  */
-
 export var EmberChatManager = Ember.Object.extend({
 
   /**
@@ -83,6 +103,11 @@ export var EmberChatManager = Ember.Object.extend({
   disconnectionCause: undefined,
   _connectionHandlers:[],
   _reconnectionHandlers:[],
+  _rosterManager: undefined,
+
+  init: function(){
+    this._rosterManager = Roster.create();
+  },
 
   /**
    * Initialize the connection with the handler of the ChatManager
@@ -96,6 +121,7 @@ export var EmberChatManager = Ember.Object.extend({
     this.connection.connect(jid, password, function(status, condition, reconnect){
       that.onConnectStatusChanged(status, condition, reconnect);
     });
+
   },
 
   onConnected : function(){
