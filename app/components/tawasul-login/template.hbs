@@ -1,0 +1,10 @@
+<h3>Log In</h3>
+<form id="logIn">
+    <p>
+      {{input value=newUser.host placeholder="host" }}
+      {{input value=newUser.pw placeholder="pw"}}
+    </p>
+    <p>
+        <span {{action "logIn" newUser}} class="btn btn-submit">Log In</span>
+    </p>
+</form>

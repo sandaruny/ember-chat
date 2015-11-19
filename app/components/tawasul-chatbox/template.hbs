@@ -1,0 +1,14 @@
+<h3>Create a new Message</h3>
+
+<form id="newMessage">
+    <p>
+      {{input value=newMessage.host placeholder="host"}}
+      {{input value=newMessage.mid placeholder="mid"}}
+    </p>
+    <p>
+      {{textarea value=newMessage.body placeholder="body"}}
+    </p>
+    <p>
+        <span {{action "createMessage" newMessage}} class="btn btn-submit">Publish</span>
+    </p>
+</form>

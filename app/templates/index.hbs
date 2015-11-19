@@ -1,0 +1,19 @@
+<h3>Chat Box </h3>
+
+<div class="container">
+  {{#each model.data as |message|}}
+    {{tawasul-chatbox-message message=message}}
+  {{/each}}
+</div>
+<aside>
+
+  {{#tawsul-roster contact=model.roster}}{{/tawsul-roster}}
+</aside>
+<aside>
+  {{#tawasul-login newUser=model logIn="logIn"}}{{/tawasul-login}}
+</aside>
+<aside>
+  {{#tawasul-chatbox newMessage=model createMessage="createMessage"}}{{/tawasul-chatbox}}
+</aside>
+
+
