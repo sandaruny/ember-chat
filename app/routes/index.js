@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import tawasul2 from 'converse-api/tawasul2';
 import TO from 'converse-api/tawasul-objects';
+import TG from 'converse-api/tawasul-global';
 
 
 // Use Mustache style syntax for variable interpolation
@@ -1588,8 +1589,16 @@ var initHandlers = function(){
 
   // loadContacts.sendIQData();
 
+};
+
+var connectionHandler = function(){
+  //alert('Handles the connection');
 }
 
+
+var reconnectionHandler = function(){
+  //alert('Handles the reconnection');
+}
 
 
 
@@ -1597,60 +1606,50 @@ var initHandlers = function(){
 
 export default Ember.Route.extend({
 
-
   /**
    * Route variables
    */
   connection: undefined,
-  chatStation:undefined,
+  chatManager: undefined,
+  chatAPI: undefined,
 
   /**
    * Initialize the converse with settings
    * make a session with the bosh session id
    */
   init: function(){
-
       var chatSetting = TO.ChatSettings.create({
         bosh_service_url:'http://localhost:7070/http-bind/'
       });
-
       this.connection = TO.Connection.create({
         settings: chatSetting
       });
-
-
-      converse.initialize({
-          bosh_service_url:'http://localhost:7070/http-bind/',//'http://openfire.mfsnet.io:7070/http-bind/ ',// Please use this connection manager only for testing purposes
-          keepalive: true,
-          message_carbons: true,
-          play_sounds: true,
-          roster_groups: true,
-          show_controlbox_by_default: true,
-          xhr_user_search: false,
-          debug:true
-
+      this.chatManager = TO.EmberChatManager.create({
+        connection: this.connection
       });
-    var id = b64_sha1('converse.bosh-session');
+      this.chatAPI = TO.ChatAPI.create({
+        chatManager: this.chatManager
+      });
 
-    let session = this.store.createRecord('session', {
-      sessid: id
-    });
-    session.save();
-    let messages = this.store.createRecord('messages',{
-      msgid :b64_sha1('converse.messages'+this.get('jid')+converse.bare_jid)
-    });
-    messages.save();
-    console.log('connection JID'+ converse.connection.jid);
-    let chatbox = this.store.createRecord('chat-box',{
-      chat_state: undefined,
-    });
-    chatbox.save();
-    initHandlers();
-    console.log('Initialization completed');
+      this.chatAPI.addHandler(connectionHandler, TG.CONNECT);
+      console.log(this.chatManager);
 
+      var id = b64_sha1('converse.bosh-session');
 
-    //let contacts = tawasul2.findRoster();
+      let session = this.store.createRecord('session', {
+        sessid: id
+      });
+      session.save();
+      let messages = this.store.createRecord('messages',{
+        msgid :b64_sha1('converse.messages'+this.get('jid')+converse.bare_jid)
+      });
+      messages.save();
 
+      let chatbox = this.store.createRecord('chat-box',{
+        chat_state: undefined,
+      });
+
+      console.log('Initialization completed');
 
   },
 
@@ -1669,16 +1668,15 @@ export default Ember.Route.extend({
   },
 
   actions: {
-
     logIn(info){
+      this.chatManager.initConnection(info.jid, info.pw);
 
-      converse.connection.connect( info.jid, info.pw, converse.onConnectStatusChanged);
       let logUser = this.store.createRecord('log-user', {
         host:info.host,
         jid:info.jid
       });
       logUser.save();
-      initHandlers();
+      console.log('login over... ');
     },
 
 

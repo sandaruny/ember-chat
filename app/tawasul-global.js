@@ -79,3 +79,9 @@ var HAS_CRYPTO = HAS_CSPRNG && (
   );
 var OPENED = 'opened';
 var CLOSED = 'closed';
+
+export var CONNECT = 'connect';
+export var RECONNECT = 'reconnect';
+
+
+
