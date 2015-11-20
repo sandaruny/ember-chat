@@ -82,7 +82,7 @@ var Roster = Ember.Object.extend({
    */
   _rosterContacts: undefined,
 
-  
+
 
 
 
